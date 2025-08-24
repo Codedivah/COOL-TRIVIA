@@ -1,7 +1,9 @@
 // src/pages/QuizPage.jsx
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 
 function QuizPage() {
+    const navigate = useNavigate()
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6">
       <h2 className="text-2xl font-semibold mb-4">Quiz In Progress</h2>
@@ -19,6 +21,12 @@ function QuizPage() {
           Finish Quiz
         </button>
       </Link>
+      <button
+        onClick={() => navigate("/")}
+        className="mt-6 bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600"
+      >
+        Go Home
+      </button>
     </div>
   );
 }

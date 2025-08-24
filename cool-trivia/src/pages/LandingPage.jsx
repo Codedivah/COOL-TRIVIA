@@ -1,7 +1,13 @@
 // src/pages/LandingPage.jsx
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 
 function LandingPage() {
+    const navigate = useNavigate()
+
+  const startQuiz = () => {
+    navigate("/quiz")
+  }
   return (
     <div>
       <h1>Welcome Cool Trivia</h1>
