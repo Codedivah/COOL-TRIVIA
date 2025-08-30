@@ -1,52 +1,80 @@
 // src/pages/LandingPage.jsx
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function LandingPage() {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  // State for quiz settings
+  const [topic, setTopic] = useState("");
+  const [difficulty, setDifficulty] = useState("easy");
+  const [amount, setAmount] = useState(5);
 
   const startQuiz = () => {
-    navigate("/quiz")
-  }
-  return (
-    <div>
-      <h1>Welcome Cool Trivia</h1>
+    navigate("/quiz", {
+      state: {
+        topic,
+        difficulty,
+        amount,
+      },
+    });
+  };
 
-      <div>
-        <label>
+  return (
+    <div className="p-6 max-w-lg mx-auto text-center">
+      <h1 className="text-3xl font-bold mb-6">Welcome to Cool Trivia 🎉</h1>
+
+      <div className="space-y-4 text-left">
+        <label className="block">
           Topic:
+  <select
+    value={topic}
+    onChange={(e) => setTopic(e.target.value)}
+    className="w-full p-2 border rounded mt-1"
+  >
+    <option value="">Any Category</option>
+    <option value="9">General Knowledge</option>
+    <option value="21">Sports</option>
+    <option value="23">History</option>
+    <option value="17">Science & Nature</option>
+    <option value="18">Computers</option>
+    <option value="22">Geography</option>
+    <option value="12">Music</option>
+    <option value="14">Television</option>
+  </select>
+        </label>
+
+        <label className="block">
+          Difficulty:
+          <select
+            value={difficulty}
+            onChange={(e) => setDifficulty(e.target.value)}
+            className="w-full p-2 border rounded mt-1"
+          >
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </label>
+
+        <label className="block">
+          Number of Questions:
           <input
-            type="text"
-            placeholder="Search or select topic..."
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(Number(e.target.value))}
+            min={1}
+            max={20}
             className="w-full p-2 border rounded mt-1"
           />
         </label>
 
-        <label>
-          Difficulty:
-          <select>
-            <option>Easy</option>
-            <option>Medium</option>
-            <option>Hard</option>
-          </select>
-        </label>
-
-        <label>
-          Number of Questions:
-          <input
-            type="number"
-            defaultValue={5}
-            min={1}
-            max={20}
-            
-          />
-        </label>
-
-        <Link to="/quiz">
-          <button>
-            Start Quiz
-          </button>
-        </Link>
+        <button
+          onClick={startQuiz}
+          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+        >
+          Start Quiz
+        </button>
       </div>
     </div>
   );
